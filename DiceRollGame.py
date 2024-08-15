@@ -1,0 +1,43 @@
+import random
+def roll():
+    min=1
+    max=6
+    roll=random.randint(min,max)
+    return roll
+while True:
+    total_players=input("Enter the number of players (2-4):")
+    if total_players.isdigit():
+        total_players=int(total_players)
+        if total_players>=2 and total_players<=4:
+            break
+        else:
+            print("Invalid")
+    else:
+        print("Try Again")        
+max_score=50
+players_score=[0 for i in range(total_players)]      
+while max(players_score)<max_score:
+    for j in range(total_players):
+        print("Player",j+1,"Turn has Started")
+        print("your total score is:",players_score[j],"\n")
+
+        curr_score=0
+        while True:
+            roll_again=input("Roll again(y):")    
+            if roll_again.lower()!="y":
+                break
+            else:
+                value=roll()
+            if value==1:
+                print("You got a 1! Your Turn is over") 
+                curr_score=0 
+                break
+            else:
+                curr_score=curr_score+value
+                print("You Rolled a:",value)   
+            print("Your Current Score is:",curr_score)       
+        players_score[j]=players_score[j]+curr_score
+        print("Your Total Score is",players_score[j])
+max_score=max(players_score)
+winning=players_score.index(max_score)
+print("Player number:",winning+1,"is the winner with the score of:",max_score)
